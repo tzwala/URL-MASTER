@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- META: Optimized viewport for edge-to-edge display and safe areas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <!-- META: Sets browser UI color to match the app theme for a more native feel -->
+    <meta name="theme-color" content="#111827">
+    <title>URL Master</title>
+    
+    <!-- YOUR ADSTERRA POPUNDER CODE -->
+    <script type='text/javascript' src='//pl26555963.profitableratecpm.com/e7/41/8e/e7418e6a42bc6ac5348e9b8f8571bab7.js'></script>
+
+    <style>
+        /* --- Basic Setup & Dark Theme --- */
+        :root {
+            --primary-bg: #111827; --secondary-bg: #1f2937; --text-color: #dcdce0;
+            --accent-color: #38bdf8; --accent-hover: #0ea5e9; --success-color: #22c55e;
+            --error-color: #ef4444; --border-color: #374151; --input-bg: #111827;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        /* OPTIMIZATION: Lock the main page scroll to feel more like a native app. Only content will scroll. */
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--primary-bg); color: var(--text-color);
+        }
+
+        /* --- Animated Gradient Background --- */
+        body { position: relative; }
+        body::before, body::after {
+            content: ''; position: absolute; z-index: -1;
+            border-radius: 50%; filter: blur(100px);
+        }
+        body::before { width: 50vw; height: 50vw; background: #4f46e5; top: -10%; left: -20%; animation: move-blob-1 20s infinite alternate; }
+        body::after { width: 60vw; height: 60vw; background: #7c3aed; bottom: -15%; right: -25%; animation: move-blob-2 25s infinite alternate; }
+        @keyframes move-blob-1 { from { transform: translate(0, 0) rotate(0deg); } to { transform: translate(100px, 50px) rotate(180deg); } }
+        @keyframes move-blob-2 { from { transform: translate(0, 0) rotate(0deg); } to { transform: translate(-80px, -60px) rotate(270deg); } }
+        
+        /* --- Mobile App Style Layout --- */
+        .app-layout {
+            display: flex; flex-direction: column;
+            height: 100%; width: 100%;
+            /* OPTIMIZATION: Add padding to account for safe areas (notches, home bars) on mobile */
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        .app-header {
+            flex-shrink: 0; display: flex; align-items: center; justify-content: space-between;
+            padding: 15px 20px;
+            background-color: rgba(31, 41, 55, 0.5); backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .app-header h1 { font-size: 1.5em; font-weight: 600; margin: 0; }
+        .app-main {
+            flex-grow: 1; overflow-y: auto;
+            padding: 25px; width: 100%;
+            max-width: 600px; margin: 0 auto;
+        }
+        .app-footer {
+            flex-shrink: 0; padding: 15px; text-align: center; font-size: 14px;
+            color: #9ca3af; background-color: rgba(17, 24, 39, 0.5);
+            border-top: 1px solid var(--border-color);
+        }
+        .app-footer a { color: var(--accent-color); text-decoration: none; }
+        .app-footer a:hover { text-decoration: underline; }
+
+        /* --- UI Animations --- */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-on-load { opacity: 0; animation: fadeInUp 0.6s ease-out forwards; }
+        .delay-1 { animation-delay: 0.2s; } .delay-2 { animation-delay: 0.3s; }
+        .delay-3 { animation-delay: 0.4s; }
+        .fade-in-element { opacity: 0; transform: translateY(10px); transition: opacity 0.3s ease-out, transform 0.3s ease-out; visibility: hidden; }
+        .fade-in-element.show { opacity: 1; transform: translateY(0); visibility: visible; }
+        
+        /* OPTIMIZATION: Add active states for buttons for better touch feedback */
+        .interactive-button { transition: transform 0.1s ease-out; }
+        .interactive-button:active { transform: scale(0.97); }
+
+        /* --- Form Styling --- */
+        .form-section { margin-bottom: 25px; }
+        .form-section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 1.1em; font-weight: 500; }
+        .form-section-header svg { width: 20px; height: 20px; opacity: 0.8; }
+        input[type="url"], input[type="text"], select { width: 100%; padding: 15px; font-size: 16px; border: 1px solid var(--border-color); border-radius: 8px; background-color: var(--input-bg); color: var(--text-color); outline: none; transition: all 0.3s ease; }
+        input[type="url"]:focus, input[type="text"]:focus, select:focus { border-color: var(--accent-color); box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.2); }
+        .alias-group { display: flex; gap: 0; }
+        .alias-group select { flex: 0 0 160px; border-top-right-radius: 0; border-bottom-right-radius: 0; border-right: none; appearance: none; background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23dcdce0' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1em; padding-right: 2.5rem; }
+        .alias-group input { border-top-left-radius: 0; border-bottom-left-radius: 0; }
+        #shorten-btn { width: 100%; padding: 16px 25px; font-size: 18px; font-weight: bold; border: none; border-radius: 8px; background-color: var(--success-color); color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background-color 0.3s, transform 0.2s ease-out; }
+        #shorten-btn:hover:not(:disabled) { background-color: #16a34a; transform: translateY(-3px); }
+        #shorten-btn:disabled { background-color: #555; cursor: not-allowed; transform: none; }
+        
+        /* --- Skeleton Loader --- */
+        .skeleton-loader { display: none; height: 54px; width: 100%; background-color: var(--secondary-bg); border-radius: 8px; margin-top: 25px; position: relative; overflow: hidden; }
+        .skeleton-loader::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent); transform: translateX(-100%); animation: shimmer 1.5s infinite; }
+        @keyframes shimmer { 100% { transform: translateX(100%); } }
+        
+        /* --- Result & Error --- */
+        #error-message { margin-bottom: 15px; text-align: center; color: var(--error-color); }
+        .result-container { margin-top: 25px; }
+        .result-group { display: flex; align-items: center; gap: 10px; background: var(--secondary-bg); border-radius: 8px; padding: 10px 15px; border: 1px solid var(--border-color); }
+        #short-url { flex-grow: 1; font-size: 16px; color: var(--accent-color); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-decoration: none; }
+        #short-url:hover { text-decoration: underline; }
+        #copy-btn { background: none; border: none; color: var(--text-color); cursor: pointer; padding: 10px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background-color 0.3s; }
+        #copy-btn:hover { background-color: rgba(255, 255, 255, 0.1); }
+        #copy-btn.copied { color: var(--success-color); }
+
+        /* --- History Panel & Button --- */
+        .history-toggle-btn { background: none; border: none; color: var(--text-color); cursor: pointer; padding: 5px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background-color 0.3s; }
+        .history-toggle-btn:hover { background-color: rgba(255, 255, 255, 0.1); }
+        #history-panel { 
+            position: fixed; top: 0; right: 0; width: 100%; max-width: 350px; height: 100%;
+            background-color: rgba(31, 41, 55, 0.8); backdrop-filter: blur(10px);
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.4); z-index: 2000;
+            transform: translateX(100%); transition: transform 0.3s ease-in-out;
+            display: flex; flex-direction: column;
+            /* OPTIMIZATION: Add safe area padding to the slide-out panel */
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+            padding-right: env(safe-area-inset-right);
+            padding-left: env(safe-area-inset-left);
+        }
+        #history-panel.show { transform: translateX(0); }
+        .history-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 1px solid var(--border-color); flex-shrink: 0; }
+        .history-header h2 { font-size: 1.2em; }
+        /* OPTIMIZATION: Move clear button to header and style it */
+        #clear-history-btn { font-size: 14px; color: var(--error-color); background: none; border: none; cursor: pointer; font-weight: 500; padding: 5px; }
+        #clear-history-btn:hover { text-decoration: underline; }
+        #history-list { list-style-type: none; padding: 15px; overflow-y: auto; flex-grow: 1; }
+        /* OPTIMIZATION: Card-style for history items with dedicated copy button */
+        #history-list li {
+            background-color: var(--primary-bg); border-radius: 8px; margin-bottom: 10px;
+            padding: 15px; border: 1px solid var(--border-color);
+            display: flex; justify-content: space-between; align-items: center; gap: 15px;
+        }
+        #history-list .history-info { display: flex; flex-direction: column; overflow: hidden; }
+        #history-list .original-url { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 14px; opacity: 0.7; margin-bottom: 5px; }
+        #history-list .short-url { font-size: 16px; color: var(--accent-color); text-decoration: none; font-weight: 500; }
+        #history-list .short-url:hover { text-decoration: underline; }
+        .history-copy-btn { background-color: var(--secondary-bg); border: 1px solid var(--border-color); flex-shrink: 0; }
+        #history-list .empty-message { text-align: center; padding: 40px 20px; opacity: 0.6; display: block; background: none; border: none; }
+        
+        #overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); z-index: 1999; opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
+        #overlay.show { opacity: 1; visibility: visible; }
+        .ad-container { margin-top: 30px; display: flex; justify-content: center; min-height: 50px; }
+    </style>
+</head>
+<body>
+
+    <div class="app-layout">
+        <header class="app-header animate-on-load">
+            <h1>URL Master</h1>
+            <button id="history-btn" class="history-toggle-btn interactive-button" title="View History"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/></svg></button>
+        </header>
+
+        <main class="app-main">
+            <div class="form-section animate-on-load delay-1"><div class="form-section-header"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"><path d="M6.354 5.5H4a3 3 0 0 0 0 6h3a3 3 0 0 0 2.83-4H9c-.086 0-.17.01-.25.031A2 2 0 0 1 7 10.5H4a2 2 0 1 1 0-4h1.535c.218-.376.495-.708.819-1z"/><path d="M9 5.5a3 3 0 0 0-2.83 4h1.098A2 2 0 0 1 9 6.5h3a2 2 0 1 1 0 4h-1.535a4.02 4.02 0 0 1-.819 1H12a3 3 0 1 0 0-6H9z"/></svg><label for="url-input">Shorten a long URL</label></div><input type="url" id="url-input" placeholder="Enter long link here" required></div>
+            <div class="form-section animate-on-load delay-2"><div class="form-section-header"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"><path d="M13.474 4.368a.5.5 0 0 1 .526.526l-1.385 5.54a.5.5 0 0 1-.526.395l-5.54-1.385a.5.5 0 0 1-.395-.526l1.385-5.54a.5.5 0 0 1 .526-.395l5.54 1.385zM9.5 2a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0V3h-1v1a.5.5 0 0 1-1 0V3H6v1a.5.5 0 0 1-1 0V3H4a.5.5 0 0 1-.5-.5a.5.5 0 0 1 .5-.5h1v-1a.5.5 0 0 1 1 0v1h1v-1a.5.5 0 0 1 1 0v1h1a.5.5 0 0 1 .5.5zM3 9.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm2 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5z"/></svg><label for="alias-input">Customize your link (Optional)</label></div><div class="alias-group"><select id="domain-select"><option value="tinyurl.com">tinyurl.com</option><option value="tiny.one">tiny.one</option></select><input type="text" id="alias-input" placeholder="Enter alias"></div></div>
+            <div id="error-message" class="fade-in-element"></div>
+            <button id="shorten-btn" class="animate-on-load delay-3 interactive-button"><span class="btn-text">Shorten URL</span></button>
+            <div id="skeleton-loader" class="skeleton-loader"></div>
+            <div class="result-container fade-in-element" id="result"><div class="result-group"><a href="#" id="short-url" target="_blank"></a><button id="copy-btn" title="Copy to clipboard" class="interactive-button"><svg class="copy-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zM8 7a.5.5 0 0 1 .5.5V11a.5.5 0 0 1-1 0V7.5a.5.5 0 0 1 .5-.5z"/></svg><svg class="check-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16" style="display: none;"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg></button></div></div>
+            <div class="ad-container animate-on-load delay-4">
+                <!-- YOUR ADSTERRA BANNER CODE -->
+                <script type="text/javascript"> atOptions = { 'key' : '8a868b1f298a993e5a3d49d4118fa388', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} }; </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/8a868b1f298a993e5a3d49d4118fa388/invoke.js"></script>
+            </div>
+        </main>
+
+        <footer class="app-footer"><p>© Copyright Owner is <a href="https://Haldarai.vercel.app/" target="_blank">HaldarAi 💡</a>.</p></footer>
+    </div>
+
+    <!-- History Panel HTML (outside main layout) -->
+    <div id="history-panel">
+        <div class="history-header">
+            <h2>History</h2>
+            <div>
+                 <button id="clear-history-btn" class="interactive-button">Clear</button>
+                 <button id="close-history-btn" class="history-toggle-btn interactive-button" title="Close"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16"><path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854z"/></svg></button>
+            </div>
+        </div>
+        <ul id="history-list"></ul>
+    </div>
+    <div id="overlay"></div>
+
+    <script>
+        // === DOM Selections ===
+        const shortenBtn = document.getElementById('shorten-btn');
+        const urlInput = document.getElementById('url-input');
+        const domainSelect = document.getElementById('domain-select');
+        const aliasInput = document.getElementById('alias-input');
+        const resultContainer = document.getElementById('result');
+        const shortUrlLink = document.getElementById('short-url');
+        const copyBtn = document.getElementById('copy-btn');
+        const errorMessage = document.getElementById('error-message');
+        const skeletonLoader = document.getElementById('skeleton-loader');
+        const historyBtn = document.getElementById('history-btn');
+        const closeHistoryBtn = document.getElementById('close-history-btn');
+        const historyPanel = document.getElementById('history-panel');
+        const historyList = document.getElementById('history-list');
+        const clearHistoryBtn = document.getElementById('clear-history-btn');
+        const overlay = document.getElementById('overlay');
+
+        // === State & Config ===
+        const apiKey = 'xxIDqs4rQ81z2fXroHjHVhre4DyipXp3hBPaAUyyk4xZVsKdJCBt1Dox9luZ';
+        const apiEndpoint = 'https://api.tinyurl.com/create';
+        let history = [];
+
+        // === Event Listeners ===
+        shortenBtn.addEventListener('click', handleShortenUrl);
+        copyBtn.addEventListener('click', () => copyToClipboard(shortUrlLink.textContent, copyBtn));
+        historyBtn.addEventListener('click', toggleHistoryPanel);
+        closeHistoryBtn.addEventListener('click', toggleHistoryPanel);
+        overlay.addEventListener('click', toggleHistoryPanel);
+        clearHistoryBtn.addEventListener('click', clearHistory);
+        // OPTIMIZATION: Use event delegation for history item copy buttons
+        historyList.addEventListener('click', handleHistoryListClick);
+
+        // === Main Functions ===
+        async function handleShortenUrl() {
+            const longUrl = urlInput.value.trim();
+            if (!longUrl || !isValidUrl(longUrl)) { showError("Please enter a valid long URL."); return; }
+            setLoading(true);
+            hideError();
+            resultContainer.classList.remove('show');
+            skeletonLoader.style.display = 'block';
+
+            const payload = {
+                url: longUrl,
+                domain: domainSelect.value.trim(),
+            };
+            const alias = aliasInput.value.trim();
+            if (alias) payload.alias = alias;
+
+            try {
+                const response = await fetch(apiEndpoint, {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload),
+                });
+                const data = await response.json();
+                if (response.ok && data.code === 0) {
+                    displayResult(data.data.tiny_url);
+                    saveToHistory(longUrl, data.data.tiny_url);
+                } else {
+                    throw new Error(data.errors[0] || 'Failed to shorten. Alias may be taken.');
+                }
+            } catch (error) {
+                showError(error.message);
+            } finally {
+                setLoading(false);
+                skeletonLoader.style.display = 'none';
+            }
+        }
+
+        // === History Management ===
+        function toggleHistoryPanel() { historyPanel.classList.toggle('show'); overlay.classList.toggle('show'); }
+        function saveToHistory(originalUrl, shortUrl) {
+            history.unshift({ original: originalUrl, short: shortUrl });
+            if (history.length > 50) history = history.slice(0, 50); // Keep history to a reasonable size
+            localStorage.setItem('urlHistory', JSON.stringify(history));
+            renderHistory();
+        }
+        // OPTIMIZATION: Renders history with interactive cards and dedicated copy buttons
+        function renderHistory() {
+            historyList.innerHTML = '';
+            if (history.length === 0) {
+                historyList.innerHTML = `<li class="empty-message">Your history is empty.</li>`;
+                return;
+            }
+            history.forEach(item => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <div class="history-info">
+                        <span class="original-url">${item.original}</span>
+                        <a href="${item.short}" target="_blank" class="short-url">${item.short}</a>
+                    </div>
+                    <button class="history-copy-btn copy-btn interactive-button" title="Copy to clipboard" data-short-url="${item.short}">
+                        <svg class="copy-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zM8 7a.5.5 0 0 1 .5.5V11a.5.5 0 0 1-1 0V7.5a.5.5 0 0 1 .5-.5z"/></svg>
+                        <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16" style="display: none;"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>
+                    </button>
+                `;
+                historyList.appendChild(li);
+            });
+        }
+        function loadHistory() {
+            const savedHistory = localStorage.getItem('urlHistory');
+            if (savedHistory) history = JSON.parse(savedHistory);
+            renderHistory();
+        }
+        function clearHistory() { if (confirm('Are you sure you want to clear all history? This cannot be undone.')) { history = []; localStorage.removeItem('urlHistory'); renderHistory(); } }
+        
+        // === UI & Helpers ===
+        function setLoading(isLoading) { shortenBtn.disabled = isLoading; }
+        function displayResult(url) {
+            shortUrlLink.href = url;
+            shortUrlLink.textContent = url;
+            resultContainer.classList.add('show');
+            // Reset main copy button state
+            const copyIcon = copyBtn.querySelector('.copy-icon');
+            const checkIcon = copyBtn.querySelector('.check-icon');
+            copyBtn.classList.remove('copied');
+            copyIcon.style.display = 'block';
+            checkIcon.style.display = 'none';
+        }
+        function showError(message) { errorMessage.textContent = message; errorMessage.classList.add('show'); }
+        function hideError() { errorMessage.classList.remove('show'); }
+        function isValidUrl(string) { try { new URL(string); return true; } catch (_) { return false; } }
+
+        // OPTIMIZATION: Generic copy function to be reused by main and history buttons
+        function copyToClipboard(text, buttonElement) {
+            navigator.clipboard.writeText(text).then(() => {
+                const copyIcon = buttonElement.querySelector('.copy-icon');
+                const checkIcon = buttonElement.querySelector('.check-icon');
+                buttonElement.classList.add('copied');
+                if(copyIcon) copyIcon.style.display = 'none';
+                if(checkIcon) checkIcon.style.display = 'block';
+                setTimeout(() => {
+                    buttonElement.classList.remove('copied');
+                    if(copyIcon) copyIcon.style.display = 'block';
+                    if(checkIcon) checkIcon.style.display = 'none';
+                }, 2000);
+            }).catch(err => {
+                showError("Could not copy URL to clipboard.");
+            });
+        }
+        // OPTIMIZATION: Handles clicks within the history list for copying
+        function handleHistoryListClick(event) {
+            const copyButton = event.target.closest('.history-copy-btn');
+            if (copyButton) {
+                const urlToCopy = copyButton.dataset.shortUrl;
+                copyToClipboard(urlToCopy, copyButton);
+            }
+        }
+        
+        // === Initial Load ===
+        document.addEventListener('DOMContentLoaded', loadHistory);
+    </script>
+
+    <!-- YOUR ADSTERRA SCRIPT -->
+    <script type='text/javascript' src='//pl26555628.profitableratecpm.com/24/fd/27/24fd2780561359f03116aea7ec6299f6.js'></script>
+
+</body>
+</html>
